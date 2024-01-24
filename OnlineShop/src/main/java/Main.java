@@ -4,12 +4,13 @@ import exceptions.QuantityException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws CustomerNotExistException, ProductNotExistException, QuantityException {
         System.out.println("online shop");
 
-        Customer femaleCustomer = new Customer("Svetlana Sidorova", LocalDate.of(1990, 5, 25),"+78593456376", Gender.OTHER);
+        Customer femaleCustomer = new Customer("Svetlana Sidorova", LocalDate.of(1990, 5, 25), "+78593456376", Gender.OTHER);
         femaleCustomer.setGender(Gender.FEMALE);
         OnlineShop.getCustomerList().add(femaleCustomer);
         OnlineShop.getCustomerList().add(new Customer("Ivanov Ivan", LocalDate.of(1987, 12, 9), "+9867566473", Gender.MALE));
@@ -44,6 +45,41 @@ public class Main {
 
         System.out.println(OnlineShop.getOrderList());
         System.out.println(OnlineShop.getOrderList().size() + " orders received");
+
+        congratulateWithHolidays(OnlineShop.getCustomerList());
+
+    }
+
+    public static void congratulateWithHolidays(List<Customer> customers) {
+        LocalDate todayDate = LocalDate.now();
+        Holiday holiday = Holiday.NONE;
+        if (todayDate.getDayOfMonth() == 1 && todayDate.getMonthValue() == 1) {
+            holiday = Holiday.NEW_YEAR;
+        }
+        if (todayDate.getDayOfMonth() == 8 && todayDate.getMonthValue() == 3) {
+            holiday = Holiday.EIGHT_OF_MARCH;
+        }
+        if (todayDate.getDayOfMonth() == 23 && todayDate.getMonthValue() == 2) {
+            holiday = Holiday.TWENTY_THREE_OF_FEBRUARY;
+        }
+
+        for (Customer customer : customers) {
+            switch (holiday) {
+                case NEW_YEAR:
+                    System.out.println(customer.getFIO() + " happy new year!");
+                    break;
+                case TWENTY_THREE_OF_FEBRUARY:
+                    if (customer.getGender() == Gender.MALE) {
+                        System.out.println(customer.getFIO() + " happy february 23!");
+                    }
+                    break;
+                case EIGHT_OF_MARCH:
+                    if (customer.getGender() == Gender.FEMALE) {
+                        System.out.println(customer.getFIO() + " happy march 8!");
+                    }
+                    break;
+            }
+        }
 
     }
 

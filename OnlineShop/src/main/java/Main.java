@@ -9,8 +9,11 @@ public class Main {
     public static void main(String[] args) throws CustomerNotExistException, ProductNotExistException, QuantityException {
         System.out.println("online shop");
 
-        OnlineShop.getCustomerList().add(new Customer("Ivanov Ivan", LocalDate.of(1987, 12, 9), "+9867566473"));
-        OnlineShop.getCustomerList().add(new Customer("Petrov Petr", LocalDate.of(1988, 12, 20), "+9867566475"));
+        Customer femaleCustomer = new Customer("Svetlana Sidorova", LocalDate.of(1990, 5, 25),"+78593456376", Gender.OTHER);
+        femaleCustomer.setGender(Gender.FEMALE);
+        OnlineShop.getCustomerList().add(femaleCustomer);
+        OnlineShop.getCustomerList().add(new Customer("Ivanov Ivan", LocalDate.of(1987, 12, 9), "+9867566473", Gender.MALE));
+        OnlineShop.getCustomerList().add(new Customer("Petrov Petr", LocalDate.of(1988, 12, 20), "+9867566475", Gender.MALE));
         OnlineShop.getProductList().add(new Product("apple", BigDecimal.valueOf(10L)));
         OnlineShop.getProductList().add(new Product("pineapple", BigDecimal.valueOf(50L)));
 
